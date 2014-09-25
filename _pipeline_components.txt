@@ -1,0 +1,122 @@
+++++++++++ ++++++++++ ++++++++++ Reference Database Update ++++++++++ ++++++++++ 
+
+bacteria, fungi, human, viruses from NCBI FTP
+
+DIR = /seq/viral/analysis/xyang/FUO/scripts
+
+	fetch_ncbiftp_bacteria.pl	: refSeq, draft 
+	fetch_ncbiftp_fungi.pl		: genome/plasmid/rRNA/mt, protein, mRNA
+	fetch_ncbiftp_human.pl		: human genome, mt, mRNA/ncRNA
+	fetch_ncbiftp_viruses.pl	: refSeq genome & proteins 
+	
+	fetch_ncbi_taxonomy.pl		: ncbi taxonomy 
+	clean_taxa_names.pl			: keep only scientific name if applicable and remove non-informative 
+								  entries (containing certain words e.g. misspelling) in the taxonomy
+								  name file names.dmp
+	prepdb						: preprocess gi_taxid_nucl.dmp to obtain 
+								  gi_range_taxid.txt and distribute
+								  relevant sequences (genome, mrna) to different taxa
+	
+update_db.pl is the wrapper that runs all above (the whole process takes < 8hr) 
+
+Running CMD in DIR /seq/viral/analysis/xyang/FUO/
+
+
+$ time perl scripts/update_db.pl -refdir curated_database/ncbi_sequence_download/ -taxdir curated_database/ncbi_taxonomy_download/
+
+	
+	### examples using prepdb
+	
+	i) convert raw gi->node map to gi_range -> node map
+	usage: 
+	./bin/prepdb -iginode gi_taxid_nucl.dmp -oginode gi_range_taxid.txt
+	
+	ii) convert input raw database to the target format on species level
+
+$ ./bin/prepdb -iginoderaw gi_taxid_nucl.dmp -iginode gi_range_taxid.txt -itree nodes.dmp -idbdir ncbi_sequene_download/raw/genome/ -odbdir ncbi_sequene_download/species-genome 
+$ ./bin/prepdb -iginoderaw gi_taxid_nucl.dmp -iginode gi_range_taxid.txt -itree nodes.dmp -idbdir ncbi_sequene_download/raw/mrna/ -odbdir ncbi_sequene_download/species-mrna 
+	
+++++++++++ ++++++++++ ++++++++++ Contaminants ++++++++++ ++++++++++ 
+
+a) rRNA
+	DIR = /seq/viral/analysis/xyang/FUO/curated_database/rrna
+	
+	rrna_combine.fasta consists of 
+	* human_all_rRNA.fasta -- obtained from Christine M.
+	* rnammer-1.2.fsa is downloaded from http://www.cbs.dtu.dk/services/RNAmmer/
+	which consists of Bacteria, Eukaryotes and Archaea 
+	* Fungi ribosomal RNA from ncbi ftp
+	
+b) UniVec
+	DIR = /seq/viral/analysis/xyang/FUO/curated_database/univec
+
+	UniVec.fa file downloaded from ftp://ftp.ncbi.nih.gov/pub/UniVec/
+	(the UniVec database: http://www.ncbi.nlm.nih.gov/tools/vecscreen/univec/)
+	
+c) primer vector sequences used for trimming
+	DIR = /seq/viral/analysis/xyang/FUO/curated_database/primer_vector
+	
+	adaptor_primer.fasta file contains Illumina/TruSeq Adaptor and RNA PCR Primers
+	
+
+++++++++++ ++++++++++ ++++++++++ Generate Skeletons of Sequence DB ++++++++++ ++++++++++ 
+	
+ - skeletondb
+ 
+Usage: 
+$ time /seq/viral/analysis/xyang/FUO/scripts/SkeletonDB/bin/skeletondb -idbdir /seq/viral/analysis/xyang/FUO/curated_database/ncbi_sequence_download/species-genome/ -odbdir /seq/viral/analysis/xyang/FUO/curated_database/ncbi_species_nr_db/ -osfdir /seq/viral/analysis/xyang/FUO/curated_database/ncbi_species_nr_skeleton -osf /seq/viral/analysis/xyang/FUO/curated_database/ncbi_species_nr_skeleton.txt
+
+++++++++++ ++++++++++ ++++++++++ Main programs ++++++++++ ++++++++++ ++++++++++
+
+- ufo.pl 
+	- m-vicuna for preprocessing
+	- mosaik for contaminants removal
+	- rm_read_by_name.pl -- given a tsv file specifying read names in the first column, 
+		remove from an input fastq file any read matching input names. The remaining reads 
+		are written to an output file whereas the removed fq reads are ADDED to an 
+		optional output. Assume in fastq file, each read name starts by @ and ends by /1 
+		or /2, whereas in tsv file, read name contains neither.
+	- rankabund for generating dominant list of organisms	
+	
+	example usage:
+	
+$ time perl /seq/viral/analysis/xyang/FUO/scripts/ufo.pl -ipfqs /seq/viral/analysis/xyang/FUO/338/input_fq/338.1.fq,/seq/viral/analysis/xyang/FUO/338/input_fq/338.2.fq -odir tmp/338/ -oprf 338 -trm_vecfa /idi/sabeti-data/xiaoyang/FUO/curated_database/primer_vector/adaptor_primer.fasta -dc_ref_fl /idi/sabeti-data/xiaoyang/FUO/curated_database/rrna/rrna_combine.fasta,/idi/sabeti-data/xiaoyang/FUO/curated_database/univec/UniVec.fa -rb_skeleton /idi/sabeti-data/xiaoyang/FUO/curated_database/ncbi_species_nr_skeleton.txt -rb_nodename /idi/sabeti-data/xiaoyang/FUO/curated_database/ncbi_taxonomy_download/names.clean.dmp -rb_tree /idi/sabeti-data/xiaoyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp
+
+		
+		
+	### examples using rankabund alone
+
+$ time ./scripts/RankAbundance/bin/rankabund -p 16 -ipfqs 338/fuo_debug/338.final.1.fq,338/fuo_debug/338.final.2.fq -isfqs 338/fuo_debug/338.final.s.fq -iskeleton curated_database/ncbi_species_genome_skeleton.txt -inodename curated_database/ncbi_taxonomy_download/names.clean.dmp -itree curated_database/ncbi_taxonomy_download/nodes.dmp -odir tmp/ -oprefix 338  
+
+
+++++++++++ ++++++++++ ++++++++++ Other Utilities ++++++++++ ++++++++++ ++++++++++
+
+- cmp_hit_files.pl -- given a folder storing a set of tsv files (these files should have 
+		string 'hit' in the file name) in the format of 
+		[rname][tab][strand][tab][reference][tab][aln_pos]
+		 Identify pair-wisely the common read names (optional: output to .shared.txt 
+		 if -prnt), summarize hits to each reference (output to .refcnts.txt).
+		 Note: the output read names do not contain the first @ char of fq format. 
+
+- get_hit_stats.pl (/seq/viral/analysis/xyang/FUO/scripts/)
+		Given read names specified in a tsv file as the 1st field and a list of fastq 
+		files separated by comma in the commandline, searching the reads (optional output 
+		as FASTA or FASTQ format if -o) in the fastq files and	generate the read 
+		statistics.
+	  	Note: the query read name should not contain the first @ char of fq format.
+		  	
+- rm_hits.pl 
+	Given read names, specified in a tsv file as the 1st field (e.g. bowtie output),
+	remove any matching reads in the input fastq paired or single end files. output
+	as fastq paired files (if both end remain) + a single end fastq file containing
+	only single end reads
+
+
+- read_mapper.pl -- unfinished script 
+
+- runMetaphlan.pl 
+
+- search_tsv.pl -- search reads (by name) in given fastq files
+
+		  	
+ 

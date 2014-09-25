@@ -1,0 +1,38 @@
+======== Download and Prep DB structure ===========
+
+DIR = /seq/viral/analysis/xyang/FUO
+
+time perl scripts/update_db.pl -refdir curated_database/ncbi_sequence_download/ -taxdir curated_database/ncbi_taxonomy_download/
+
+time: 
+
+=== HP1 ===
+
+time perl scripts/ufo.pl -ipfqs HP1/input_fq/HP1_LIB11-18.1.fq,HP1/input_fq/HP1_LIB11-18.2.fq -odir HP1/fuo_debug/ -oprf hp1.new -trm_vecfa curated_database/primer_vector/adaptor_primer.fasta -dc_ref_fl curated_database/rrna/rrna_combine.fasta,curated_database/univec/UniVec.fa -rb_skeleton curated_database/ncbi_species_genome_skeleton.txt -rb_nodename curated_database/ncbi_taxonomy_download/names.clean.dmp -rb_tree curated_database/ncbi_taxonomy_download/nodes.dmp
+
+input: 4,281,539 x 2   (80% duplicates)
+effective: 56,482 x 2 + 75,053 
+16mins 53 secs
+
+
+=== 338 ===
+
+time perl scripts/ufo.pl -ipfqs 338/input_fq/338.1.fq,338/input_fq/338.2.fq -odir 338/fuo_debug/ -oprf 338 -trm_vecfa curated_database/primer_vector/adaptor_primer.fasta -dc_ref_fl curated_database/rrna/rrna_combine.fasta,curated_database/univec/UniVec.fa -rb_skeleton curated_database/ncbi_species_genome_skeleton.txt -rb_nodename curated_database/ncbi_taxonomy_download/names.clean.dmp -rb_tree curated_database/ncbi_taxonomy_download/nodes.dmp
+
+input: 4,543,904 x 2  (67% dupl)
+effective reads 98,701 x 2 + 109,582
+13mins 20sec
+
+on sabeti-data
+$ time perl /seq/viral/analysis/xyang/FUO/scripts/ufo.pl -ipfqs /seq/viral/analysis/xyang/FUO/338/input_fq/338.1.fq,/seq/viral/analysis/xyang/FUO/338/input_fq/338.2.fq -odir tmp/338/ -oprf 338 -trm_vecfa /idi/sabeti-data/xiaoyang/FUO/curated_database/primer_vector/adaptor_primer.fasta -dc_ref_fl /idi/sabeti-data/xiaoyang/FUO/curated_database/rrna/rrna_combine.fasta,/idi/sabeti-data/xiaoyang/FUO/curated_database/univec/UniVec.fa -rb_skeleton /idi/sabeti-data/xiaoyang/FUO/curated_database/ncbi_species_nr_skeleton.txt -rb_nodename /idi/sabeti-data/xiaoyang/FUO/curated_database/ncbi_taxonomy_download/names.clean.dmp -rb_tree /idi/sabeti-data/xiaoyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp
+
+=== 49c ===
+
+time perl scripts/ufo.pl -ipfqs 49c/input_fq/49c.1.fq,49c/input_fq/49c.2.fq -odir 49c/fuo_debug/ -oprf 49c.new -trm_vecfa curated_database/primer_vector/adaptor_primer.fasta -dc_ref_fl curated_database/rrna/rrna_combine.fasta,curated_database/univec/UniVec.fa -rb_skeleton curated_database/ncbi_species_genome_skeleton.txt -rb_nodename curated_database/ncbi_taxonomy_download/names.clean.dmp -rb_tree curated_database/ncbi_taxonomy_download/nodes.dmp > 49c/fuo_debug/49c.log.txt
+
+input 17,617,141 x 2  (73% dupl)
+2,818,785 x 2 + 317,297
+53min 13 sec
+
+
+

@@ -1,0 +1,15 @@
+--------------------------------------------------------
+Running command: 
+/seq/viral/analysis/xyang/FUO/scripts/SkeletonDB/bin/skeletondb -p 16 -k 32 -perc 1 -wl 10 -wd 80 -idbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/species-genome/ -odbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_species_nr_db/ -osfdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_species_nr_skeleton -osf /idi/sabeti-data/xyang/FUO/curated_database/ncbi_species_nr_skeleton.txt
+
+--------------------------------------------------------
+
+Read in DB files...
+	num of taxa: 7984
+Generate skeletons by sampling each taxa ...
+	7984 taxa to process
+	complete.
+
+real	63m33.278s
+user	493m53.705s
+sys	33m1.186s

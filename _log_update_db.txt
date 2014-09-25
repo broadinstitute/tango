@@ -1,0 +1,336 @@
+Download NCBI Taxonomy - 19:29
+
+[CMD]	perl /seq/viral/analysis/xyang/FUO/scripts/clean_taxa_names.pl -i /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/names.dmp -o /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/names.clean.dmp
+
+Done!
+
+
+Download NCBI refs - 19:30
+
+
+Download Human - 19:30
+455
+	genomic sequences downloaded
+98746
+	mRNA sequences downloaded
+
+DONE! 
+
+Download Viruses - 19:32
+5301
+ genomic sequences recorded to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/viruses-genome-5-15-2014.fa
+181331
+ protein sequences recorded to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/viruses-5-15-2014.pr
+
+DONE!
+
+Download Fungi - 19:32
+54105
+	genomic sequences recorded to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/fungi-genome-5-15-2014.fa
+801384
+	protein sequences recorded to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/fungi-5-15-2014.pr
+797681
+	mRNA sequences recorded to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/fungi-rna-5-15-2014.fa
+
+DONE! 
+
+Download Bacteria - 19:35
+
+retrieve ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/all.fna.tar.gz
+
+unzip retrieved link to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria
+
+tar -xf /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria/all.fna.tar.gz -C /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria
+
+Time - 19:38
+
+find /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria -name "*.fna" -exec cat {} + > /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/bacteria-all-5-15-2014.fa
+
+Split /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/bacteria-all-5-15-2014.fa into genomic and plasmids
+
+Num of Genomic, Plasmids: 3020, 2173 (n 5193)
+
+clean up: rm -rf /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria
+rm /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/bacteria-all-5-15-2014.fa
+DONE! 
+
+Download Bacteria - 19:44
+
+retrieve ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria_DRAFT/ to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria-draft
+
+wget -q -A ".fna.tgz" -m -nd ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria_DRAFT -P /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria-draft
+
+	Time: 20 hr	 41 min
+
+unzip all .tgz files
+
+7104 tgz files to be processed
+rm: cannot remove `/idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria-draft/merged.fa': No such file or directory
+batch 0 complete
+batch 1 complete
+batch 2 complete
+batch 3 complete
+batch 4 complete
+batch 5 complete
+batch 6 complete
+batch 7 complete
+batch 8 complete
+batch 9 complete
+batch 10 complete
+batch 11 complete
+batch 12 complete
+batch 13 complete
+batch 14 complete
+batch 15 complete
+batch 16 complete
+batch 17 complete
+batch 18 complete
+batch 19 complete
+batch 20 complete
+batch 21 complete
+batch 22 complete
+batch 23 complete
+batch 24 complete
+batch 25 complete
+batch 26 complete
+batch 27 complete
+batch 28 complete
+batch 29 complete
+batch 30 complete
+batch 31 complete
+batch 32 complete
+batch 33 complete
+batch 34 complete
+batch 35 complete
+batch 36 complete
+batch 37 complete
+batch 38 complete
+batch 39 complete
+batch 40 complete
+batch 41 complete
+batch 42 complete
+batch 43 complete
+batch 44 complete
+batch 45 complete
+batch 46 complete
+batch 47 complete
+batch 48 complete
+batch 49 complete
+batch 50 complete
+batch 51 complete
+batch 52 complete
+batch 53 complete
+batch 54 complete
+batch 55 complete
+batch 56 complete
+batch 57 complete
+batch 58 complete
+batch 59 complete
+batch 60 complete
+batch 61 complete
+batch 62 complete
+batch 63 complete
+batch 64 complete
+batch 65 complete
+batch 66 complete
+batch 67 complete
+batch 68 complete
+batch 69 complete
+batch 70 complete
+
+find /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria-draft/extract -name "*.fna" -exec cat {} + > /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria-draft/merged.fa
+
+cat /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria-draft/merged.fa >> /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/bacteria-all-draft-5-15-2014.fa
+/idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/bacteria-all-draft-5-15-2014.fa has been completed generated
+
+Time - 22:16
+
+Split /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/bacteria-all-draft-5-15-2014.fa into genomic and plasmids
+
+Num of Genomic, Plasmids: 1148968, 661 (n 1149629)
+
+clean up: rm -rf /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/ncbi-ftp-genome-Bacteria-draft
+rm /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/bacteria-all-draft-5-15-2014.fa
+DONE! 
+
+PrepDB - 22:26
+
+[CMD] /seq/viral/analysis/xyang/FUO/scripts/PrepDB/bin/prepdb -iginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp -oginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt
+
+--------------------------------------------------------
+Running command: 
+/seq/viral/analysis/xyang/FUO/scripts/PrepDB/bin/prepdb -iginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp -oginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt -p 16 -level species
+
+--------------------------------------------------------
+
+Parse /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp to generate giRange->node to /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt
+	nums of rows, ranges: 378271582, 37607211
+	done
+
+Split genome sequences at the Species level - 22:36
+
+[CMD] /seq/viral/analysis/xyang/FUO/scripts/PrepDB/bin/prepdb -iginoderaw /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp -iginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt -itree /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp -idbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome -odbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/species-genome/
+
+--------------------------------------------------------
+Running command: 
+/seq/viral/analysis/xyang/FUO/scripts/PrepDB/bin/prepdb -iginoderaw /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp -iginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt -itree /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp -idbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome -odbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/species-genome/ -p 16 -level species
+
+--------------------------------------------------------
+
+Obtain all gis from /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp
+	 10000000 read
+	 20000000 read
+	 30000000 read
+	 40000000 read
+	 50000000 read
+	 60000000 read
+	 70000000 read
+	 80000000 read
+	 90000000 read
+	 100000000 read
+	 110000000 read
+	 120000000 read
+	 130000000 read
+	 140000000 read
+	 150000000 read
+	 160000000 read
+	 170000000 read
+	 180000000 read
+	 190000000 read
+	 200000000 read
+	 210000000 read
+	 220000000 read
+	 230000000 read
+	 240000000 read
+	 250000000 read
+	 260000000 read
+	 270000000 read
+	 280000000 read
+	 290000000 read
+	 300000000 read
+	 310000000 read
+	 320000000 read
+	 330000000 read
+	 340000000 read
+	 350000000 read
+	 360000000 read
+	 370000000 read
+	 378271582 read
+	378271582 gi found
+Read giRange->node from /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt
+	nums of rows, ranges: 37607211, 37607211
+	done
+Parse /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp to get tree structure
+	Get taxonomy types
+	Gen taxonomy tree
+	Ordering taxonomy types
+
+	Lists of ordered ranks:
+		
+	0
+		no, forma, varietas, subspecies, species, subgenus, genus, subtribe, tribe, subfamily, 
+		family, superfamily, parvorder, infraorder, suborder, order, superorder, infraclass, subclass, class, 
+		superclass, subphylum, phylum, subkingdom, kingdom, superkingdom, 
+
+	1
+		phylum, superphylum, kingdom, 
+
+	Generate cluster at species rank
+Analyze database /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome
+	 ouput as /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/species-genome/
+	process /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome/fungi-genome-5-15-2014.fa
+	process /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome/bacteria-genome-5-15-2014.fa
+	process /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome/viruses-genome-5-15-2014.fa
+	process /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome/human-genome-5-15-2014.fa
+	process /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/genome/bacteria-genome-draft-5-15-2014.fa
+	num of sequences: 1211849
+	num of clusters: 7984
+	386669 (likely) outdated records [ignored]
+	reorganize cluster by max size, num cls: 8006
+	Output
+
+Split mRNA sequences at the Species level - 22:58
+
+[CMD] /seq/viral/analysis/xyang/FUO/scripts/PrepDB/bin/prepdb -iginoderaw /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp -iginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt -itree /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp -idbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/mrna -odbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/species-mrna/
+
+--------------------------------------------------------
+Running command: 
+/seq/viral/analysis/xyang/FUO/scripts/PrepDB/bin/prepdb -iginoderaw /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp -iginode /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt -itree /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp -idbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/mrna -odbdir /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/species-mrna/ -p 16 -level species
+
+--------------------------------------------------------
+
+Obtain all gis from /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_taxid_nucl.dmp
+	 10000000 read
+	 20000000 read
+	 30000000 read
+	 40000000 read
+	 50000000 read
+	 60000000 read
+	 70000000 read
+	 80000000 read
+	 90000000 read
+	 100000000 read
+	 110000000 read
+	 120000000 read
+	 130000000 read
+	 140000000 read
+	 150000000 read
+	 160000000 read
+	 170000000 read
+	 180000000 read
+	 190000000 read
+	 200000000 read
+	 210000000 read
+	 220000000 read
+	 230000000 read
+	 240000000 read
+	 250000000 read
+	 260000000 read
+	 270000000 read
+	 280000000 read
+	 290000000 read
+	 300000000 read
+	 310000000 read
+	 320000000 read
+	 330000000 read
+	 340000000 read
+	 350000000 read
+	 360000000 read
+	 370000000 read
+	 378271582 read
+	378271582 gi found
+Read giRange->node from /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/gi_range_taxid.txt
+	nums of rows, ranges: 37607211, 37607211
+	done
+Parse /idi/sabeti-data/xyang/FUO/curated_database/ncbi_taxonomy_download/nodes.dmp to get tree structure
+	Get taxonomy types
+	Gen taxonomy tree
+	Ordering taxonomy types
+
+	Lists of ordered ranks:
+		
+	0
+		no, forma, varietas, subspecies, species, subgenus, genus, subtribe, tribe, subfamily, 
+		family, superfamily, parvorder, infraorder, suborder, order, superorder, infraclass, subclass, class, 
+		superclass, subphylum, phylum, subkingdom, kingdom, superkingdom, 
+
+	1
+		phylum, superphylum, kingdom, 
+
+	Generate cluster at species rank
+Analyze database /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/mrna
+	 ouput as /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/species-mrna/
+	process /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/mrna/human-rna-5-15-2014.fa
+	process /idi/sabeti-data/xyang/FUO/curated_database/ncbi_sequence_download/raw/mrna/fungi-rna-5-15-2014.fa
+	num of sequences: 896427
+	num of clusters: 94
+	2066 (likely) outdated records [ignored]
+	reorganize cluster by max size, num cls: 94
+	Output
+
+DB update complete - 23:5
+
+
+real	216m9.101s
+user	48m30.002s
+sys	21m16.906s
